@@ -1,0 +1,119 @@
+body {
+    background-color: #f5f7fb;
+    font-family: Arial, sans-serif;
+}
+
+.sidebar {
+    width: 250px;
+    min-height: 100vh;
+    background: #172033;
+    color: white;
+    padding: 20px 15px;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.sidebar h3 {
+    font-weight: bold;
+}
+
+.sidebar a {
+    display: block;
+    color: #cbd5e1;
+    text-decoration: none;
+    padding: 12px 15px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background: #0d6efd;
+    color: white;
+}
+
+.sidebar i {
+    margin-right: 10px;
+}
+
+.main-content {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+    padding: 25px;
+}
+
+.dashboard-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.dashboard-card h6 {
+    color: #6c757d;
+}
+
+.dashboard-card h2 {
+    font-weight: bold;
+}
+
+.icon {
+    font-size: 40px;
+    color: #0d6efd;
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    white-space: nowrap;
+}
+
+.btn {
+    border-radius: 7px;
+}
+
+.modal-content {
+    border-radius: 12px;
+    border: none;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 70px;
+        padding: 15px 8px;
+    }
+    .sidebar h3 {
+        font-size: 0;
+    }
+    .sidebar h3:first-letter {
+        font-size: 25px;
+    }
+    .sidebar a {
+        text-align: center;
+        padding: 12px 5px;
+    }
+    .sidebar a i {
+        margin: 0;
+        font-size: 20px;
+    }
+    .sidebar a {
+        font-size: 0;
+    }
+    .main-content {
+        margin-left: 70px;
+        width: calc(100% - 70px);
+        padding: 15px;
+    }
+}

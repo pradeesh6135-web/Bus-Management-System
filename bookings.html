@@ -1,0 +1,589 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Booking Management - Bus Management System</title>
+
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+
+    <!-- Project CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+     MAIN LAYOUT
+===================================================== -->
+
+    <div class="d-flex">
+
+
+        <!-- =================================================
+         SIDEBAR
+    ================================================== -->
+
+        <div class="sidebar">
+
+            <h3 class="text-center mb-4">
+                🚌 Bus Admin
+            </h3>
+
+
+            <a href="index.html">
+
+                <i class="bi bi-speedometer2"></i> Dashboard
+
+            </a>
+
+
+            <a href="buses.html">
+
+                <i class="bi bi-bus-front"></i> Buses
+
+            </a>
+
+
+            <a href="routes.html">
+
+                <i class="bi bi-signpost-2"></i> Routes
+
+            </a>
+
+
+            <a href="drivers.html">
+
+                <i class="bi bi-person-badge"></i> Drivers
+
+            </a>
+
+
+            <a href="schedules.html">
+
+                <i class="bi bi-clock"></i> Schedules
+
+            </a>
+
+
+            <a href="bookings.html" class="active">
+
+                <i class="bi bi-ticket-perforated"></i> Bookings
+
+            </a>
+
+
+            <a href="payments.html">
+
+                <i class="bi bi-credit-card"></i> Payments
+
+            </a>
+
+        </div>
+
+
+
+        <!-- =================================================
+         MAIN CONTENT
+    ================================================== -->
+
+        <div class="main-content">
+
+
+            <!-- =================================================
+             PAGE HEADER
+        ================================================== -->
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+
+                <div>
+
+                    <h2 class="fw-bold">
+
+                        <i class="bi bi-ticket-perforated"></i> Booking Management
+
+                    </h2>
+
+                    <p class="text-muted mb-0">
+
+                        Manage passenger bus bookings
+
+                    </p>
+
+                </div>
+
+
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookingModal" onclick="clearBookingForm()">
+
+                <i class="bi bi-plus-circle"></i>
+
+                Add Booking
+
+            </button>
+
+            </div>
+
+
+
+            <!-- =================================================
+             BOOKING TABLE CARD
+        ================================================== -->
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-body">
+
+
+                    <!-- SEARCH -->
+
+                    <div class="row mb-3">
+
+                        <div class="col-md-6">
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+
+                                <i
+                                    class="bi bi-search">
+                                </i>
+
+                            </span>
+
+
+                                <input type="text" id="bookingSearch" class="form-control" placeholder="Search booking, passenger, bus or route..." onkeyup="searchBookings()">
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-6 text-md-end mt-2 mt-md-0">
+
+                            <span class="badge bg-primary fs-6 p-2">
+
+                            <i
+                                class="bi bi-ticket">
+                            </i>
+
+                            Total Bookings:
+
+                            <span id="bookingCount">
+                                0
+                            </span>
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- TABLE -->
+
+                    <div class="table-responsive">
+
+                        <table class="table table-hover table-bordered align-middle">
+
+                            <thead class="table-dark">
+
+                                <tr>
+
+                                    <th>
+                                        ID
+                                    </th>
+
+                                    <th>
+                                        Passenger
+                                    </th>
+
+                                    <th>
+                                        Bus
+                                    </th>
+
+                                    <th>
+                                        Route
+                                    </th>
+
+                                    <th>
+                                        Seat
+                                    </th>
+
+                                    <th>
+                                        Travel Date
+                                    </th>
+
+                                    <th>
+                                        Fare
+                                    </th>
+
+                                    <th>
+                                        Status
+                                    </th>
+
+                                    <th>
+                                        Actions
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody id="bookingTable">
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+     ADD / EDIT BOOKING MODAL
+===================================================== -->
+
+    <div class="modal fade" id="bookingModal" tabindex="-1" aria-hidden="true">
+
+
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+
+
+            <div class="modal-content">
+
+
+                <!-- MODAL HEADER -->
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title fw-bold">
+
+                        <i class="bi bi-ticket-perforated">
+                    </i> Add / Edit Booking
+
+                    </h5>
+
+
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+
+                </button>
+
+                </div>
+
+
+
+                <!-- MODAL BODY -->
+
+                <div class="modal-body">
+
+
+                    <!-- HIDDEN ID -->
+
+                    <input type="hidden" id="bookingId">
+
+
+
+                    <!-- PASSENGER -->
+
+                    <div class="mb-3">
+
+                        <label for="passenger" class="form-label fw-semibold">
+
+                        Passenger Name
+                        <span class="text-danger">*</span>
+
+                    </label>
+
+
+                        <input type="text" id="passenger" class="form-control" placeholder="Enter passenger name" autocomplete="off">
+
+                    </div>
+
+
+
+                    <!-- BUS + ROUTE -->
+
+                    <div class="row">
+
+
+                        <div class="col-md-6 mb-3">
+
+                            <label for="bookingBus" class="form-label fw-semibold">
+
+                            Bus Number
+                            <span class="text-danger">*</span>
+
+                        </label>
+
+
+                            <input type="text" id="bookingBus" class="form-control" placeholder="TN-01-AB-1234" autocomplete="off">
+
+                        </div>
+
+
+
+                        <div class="col-md-6 mb-3">
+
+                            <label for="bookingRoute" class="form-label fw-semibold">
+
+                            Route
+                            <span class="text-danger">*</span>
+
+                        </label>
+
+
+                            <input type="text" id="bookingRoute" class="form-control" placeholder="Chennai - Pondicherry" autocomplete="off">
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- SEAT + DATE -->
+
+                    <div class="row">
+
+
+                        <div class="col-md-6 mb-3">
+
+                            <label for="seat" class="form-label fw-semibold">
+
+                            Seat Number
+
+                        </label>
+
+
+                            <input type="text" id="seat" class="form-control" placeholder="A12" autocomplete="off">
+
+                        </div>
+
+
+
+                        <div class="col-md-6 mb-3">
+
+                            <label for="travelDate" class="form-label fw-semibold">
+
+                            Travel Date
+
+                        </label>
+
+
+                            <input type="date" id="travelDate" class="form-control">
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- FARE + STATUS -->
+
+                    <div class="row">
+
+
+                        <div class="col-md-6 mb-3">
+
+                            <label for="bookingFare" class="form-label fw-semibold">
+
+                            Fare (₹)
+
+                        </label>
+
+
+                            <div class="input-group">
+
+                                <span class="input-group-text">
+
+                                ₹
+
+                            </span>
+
+
+                                <input type="number" id="bookingFare" class="form-control" placeholder="450" min="0" step="0.01">
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="col-md-6 mb-3">
+
+                            <label for="bookingStatus" class="form-label fw-semibold">
+
+                            Booking Status
+
+                        </label>
+
+
+                            <select id="bookingStatus" class="form-select">
+
+                            <option value="Confirmed">
+                                Confirmed
+                            </option>
+
+                            <option value="Pending">
+                                Pending
+                            </option>
+
+                            <option value="Cancelled">
+                                Cancelled
+                            </option>
+
+                        </select>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- MODAL FOOTER -->
+
+                <div class="modal-footer">
+
+
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+
+                    <i
+                        class="bi bi-x-circle">
+                    </i>
+
+                    Cancel
+
+                </button>
+
+
+                    <button type="button" class="btn btn-primary" onclick="saveBooking()">
+
+                    <i
+                        class="bi bi-check-circle">
+                    </i>
+
+                    Save Booking
+
+                </button>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+     BOOTSTRAP JS
+===================================================== -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+
+
+    <!-- =====================================================
+     BOOKINGS JS
+===================================================== -->
+
+    <script src="js/bookings.js">
+    </script>
+
+
+
+    <!-- =====================================================
+     BOOKING COUNT
+===================================================== -->
+
+    <script>
+        document.addEventListener(
+            "DOMContentLoaded",
+            function() {
+
+                updateBookingCount();
+
+            }
+        );
+
+
+        function updateBookingCount() {
+
+            const countElement =
+                document.getElementById(
+                    "bookingCount"
+                );
+
+
+            if (!countElement) {
+
+                return;
+
+            }
+
+
+            try {
+
+                const bookings =
+                    JSON.parse(
+                        localStorage.getItem(
+                            "bookings"
+                        )
+                    ) || [];
+
+
+                countElement.textContent =
+                    Array.isArray(bookings) ?
+                    bookings.length :
+                    0;
+
+            } catch (error) {
+
+                console.error(
+                    "Booking count error:",
+                    error
+                );
+
+                countElement.textContent =
+                    "0";
+
+            }
+
+        }
+    </script>
+
+
+</body>
+
+</html>
+```
