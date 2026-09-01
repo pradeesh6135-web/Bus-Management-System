@@ -1,119 +1,600 @@
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
 body {
     background-color: #f5f7fb;
-    font-family: Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #172033;
+    overflow-x: hidden;
 }
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
 
 .sidebar {
-    width: 250px;
-    min-height: 100vh;
-    background: #172033;
-    color: white;
-    padding: 20px 15px;
     position: fixed;
-    left: 0;
     top: 0;
+    left: 0;
+
+    width: 250px;
+    height: 100vh;
+    min-height: 100vh;
+
+    background: #172033;
+    color: #ffffff;
+
+    padding: 20px 15px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    z-index: 1000;
+
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.10);
 }
+
+
+/* Sidebar Title */
 
 .sidebar h3 {
-    font-weight: bold;
+    margin: 0 0 25px 0;
+    padding: 0 10px;
+
+    font-size: 22px;
+    font-weight: 700;
+
+    color: #ffffff;
 }
+
+
+/* Sidebar Links */
 
 .sidebar a {
-    display: block;
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+
     color: #cbd5e1;
     text-decoration: none;
+
     padding: 12px 15px;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
+
     border-radius: 8px;
-    transition: 0.3s;
+
+    font-size: 15px;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
 }
 
-.sidebar a:hover,
+
+/* Sidebar Hover */
+
+.sidebar a:hover {
+    background: #26334d;
+    color: #ffffff;
+
+    transform: translateX(2px);
+}
+
+
+/* Active Link */
+
 .sidebar a.active {
     background: #0d6efd;
-    color: white;
+    color: #ffffff;
 }
 
+
+/* Sidebar Icons */
+
 .sidebar i {
+    width: 22px;
+    min-width: 22px;
+
     margin-right: 10px;
+
+    font-size: 17px;
+    text-align: center;
 }
+
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
 
 .main-content {
     margin-left: 250px;
+
     width: calc(100% - 250px);
+    min-height: 100vh;
+
     padding: 25px;
 }
 
-.dashboard-card {
-    background: white;
-    border-radius: 12px;
-    padding: 25px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+
+/* =========================================================
+   DASHBOARD HEADER
+   ========================================================= */
+
+.main-content h1,
+.main-content h2,
+.main-content h3,
+.main-content h4 {
+    color: #172033;
 }
 
-.dashboard-card h6 {
+.main-content h1 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.main-content p {
     color: #6c757d;
 }
 
-.dashboard-card h2 {
-    font-weight: bold;
+
+/* =========================================================
+   DASHBOARD CARDS
+   ========================================================= */
+
+.dashboard-card {
+    background: #ffffff;
+
+    border-radius: 12px;
+
+    padding: 25px;
+
+    min-height: 130px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+
+    border: 1px solid #eeeeee;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
+
+/* Card Hover */
+
+.dashboard-card:hover {
+    transform: translateY(-2px);
+
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+
+/* Card Small Heading */
+
+.dashboard-card h6 {
+    margin: 0 0 10px 0;
+
+    color: #6c757d;
+
+    font-size: 15px;
+    font-weight: 500;
+}
+
+
+/* Card Number */
+
+.dashboard-card h2 {
+    margin: 0;
+
+    color: #172033;
+
+    font-size: 32px;
+    font-weight: 700;
+}
+
+
+/* Card Links */
+
+.dashboard-card a {
+    display: inline-block;
+
+    margin-top: 10px;
+
+    color: #0d6efd;
+
+    text-decoration: none;
+
+    font-size: 15px;
+}
+
+.dashboard-card a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   ICONS
+   ========================================================= */
+
 .icon {
-    font-size: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 55px;
+    height: 55px;
+
+    font-size: 38px;
+
     color: #0d6efd;
 }
 
-.card {
-    border: none;
-    border-radius: 12px;
+
+/* Different Icon Colors */
+
+.dashboard-card:nth-child(1) .icon {
+    color: #0d6efd;
 }
 
+.dashboard-card:nth-child(2) .icon {
+    color: #198754;
+}
+
+.dashboard-card:nth-child(3) .icon {
+    color: #ffc107;
+}
+
+.dashboard-card:nth-child(4) .icon {
+    color: #0dcaf0;
+}
+
+.dashboard-card:nth-child(5) .icon {
+    color: #dc3545;
+}
+
+.dashboard-card:nth-child(6) .icon {
+    color: #6c757d;
+}
+
+
+/* =========================================================
+   NORMAL BOOTSTRAP CARDS
+   ========================================================= */
+
+.card {
+    border: none;
+
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================================================
+   QUICK ACTIONS
+   ========================================================= */
+
+.quick-actions {
+    background: #ffffff;
+
+    border-radius: 12px;
+
+    padding: 20px;
+
+    margin-top: 25px;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.quick-actions h4 {
+    margin-top: 0;
+    margin-bottom: 20px;
+
+    font-weight: 700;
+}
+
+
+/* Quick Action Buttons */
+
+.quick-actions .btn {
+    width: 100%;
+    min-height: 58px;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.btn {
+    border-radius: 7px;
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   TABLE
+   ========================================================= */
+
 .table {
+    width: 100%;
+
     margin-bottom: 0;
+
+    background: #ffffff;
 }
 
 .table th {
     white-space: nowrap;
+
+    font-weight: 600;
 }
 
-.btn {
-    border-radius: 7px;
+.table td,
+.table th {
+    vertical-align: middle;
 }
+
+
+/* =========================================================
+   MODAL
+   ========================================================= */
 
 .modal-content {
     border-radius: 12px;
+
     border: none;
+
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.20);
 }
 
+.modal-header {
+    border-bottom: 1px solid #eeeeee;
+}
+
+.modal-footer {
+    border-top: 1px solid #eeeeee;
+}
+
+
+/* =========================================================
+   FORM CONTROLS
+   ========================================================= */
+
+.form-control,
+.form-select {
+    border-radius: 7px;
+    min-height: 40px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #0d6efd;
+
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+}
+
+
+/* =========================================================
+   DASHBOARD GRID
+   ========================================================= */
+
+.dashboard-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 20px;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   QUICK ACTION GRID
+   ========================================================= */
+
+.quick-action-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 15px;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: #172033;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: #3d4b63;
+    border-radius: 10px;
+}
+
+
+/* =========================================================
+   RESPONSIVE - TABLET
+   ========================================================= */
+
+@media (max-width: 992px) {
+
+    .sidebar {
+        width: 210px;
+    }
+
+    .main-content {
+        margin-left: 210px;
+        width: calc(100% - 210px);
+        padding: 20px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .quick-action-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE - MOBILE
+   ========================================================= */
+
 @media (max-width: 768px) {
+
     .sidebar {
         width: 70px;
+
         padding: 15px 8px;
     }
+
     .sidebar h3 {
         font-size: 0;
+
+        text-align: center;
+
+        margin-bottom: 20px;
     }
+
     .sidebar h3:first-letter {
         font-size: 25px;
     }
+
     .sidebar a {
+        justify-content: center;
+
         text-align: center;
+
         padding: 12px 5px;
-    }
-    .sidebar a i {
-        margin: 0;
-        font-size: 20px;
-    }
-    .sidebar a {
+
         font-size: 0;
     }
+
+    .sidebar a i {
+        margin: 0;
+
+        width: auto;
+        min-width: auto;
+
+        font-size: 20px;
+    }
+
     .main-content {
         margin-left: 70px;
+
         width: calc(100% - 70px);
+
         padding: 15px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+    }
+
+    .quick-action-grid {
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+    }
+
+    .dashboard-card {
+        padding: 20px;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL SCREEN
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .sidebar {
+        width: 60px;
+
+        padding: 10px 5px;
+    }
+
+    .sidebar a {
+        padding: 11px 3px;
+    }
+
+    .sidebar a i {
+        font-size: 18px;
+    }
+
+    .main-content {
+        margin-left: 60px;
+
+        width: calc(100% - 60px);
+
+        padding: 10px;
+    }
+
+    .dashboard-card {
+        padding: 16px;
+
+        min-height: 110px;
+    }
+
+    .dashboard-card h2 {
+        font-size: 26px;
+    }
+
+    .icon {
+        width: 45px;
+        height: 45px;
+
+        font-size: 30px;
     }
 }
